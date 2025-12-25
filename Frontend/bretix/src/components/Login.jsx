@@ -28,7 +28,7 @@ function Login() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
+    <div className="login">
       <input
         type="email"
         name="email"
