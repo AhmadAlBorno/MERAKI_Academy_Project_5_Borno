@@ -37,6 +37,7 @@ function Login() {
         dispatch(setRole(result.data.role))
         localStorage.setItem("token", result.data.token);
         localStorage.setItem("role",result.data.role)
+        localStorage.setItem("storeId", result.data.storeId)
         setToken(result.data.token);
         navigate("/");
       })
