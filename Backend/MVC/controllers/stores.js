@@ -112,10 +112,44 @@ const getAllStores = async(req,res)=>{
   }
 }
 
+const getProductsInStore = async(req,res)=>{
+  const {id} = req.params
+  try{
+    const result = await pool.query(`
+       SELECT * FROM store
+       FULL OUTER JOIN products 
+       ON store.products_id = products.id WHERE store.id =$1 `,[id])
+       res.status(200).json({
+        success:true,
+        result:result.rows
+       })
+  }catch(err){
+    console.log(err);
+  }
+}
+
+// const addNewProduct = async(req,res)=>{
+//     const { imgsrc, title, description, price, rate, categories_id } = req.body;
+
+//   try{
+//     const result = await pool.query(`
+//       INSERT INTO products (imgsrc, title, description, price, rate, categories_id)
+//     VALUES ($1, $2, $3, $4, $5, $6)
+//     RETURNING *
+//       `,
+//     [imgsrc, title, description, price, rate, categories_id]
+//     )
+//     const newProductId = result.rows.id
+
+//   }catch(err){console.log(err);
+//   }
+// }
+
 module.exports = {
   addNewStore,
   getStoreById,
   updateStoreById,
   deleteStoreById,
   getAllStores,
+  getProductsInStore,
 };
