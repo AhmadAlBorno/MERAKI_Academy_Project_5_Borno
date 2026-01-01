@@ -52,7 +52,6 @@ const ProductView = () => {
   return (
     <div className="product-view-container">
       <div className="edit-card">
-        {/* قسم الصورة المعاينة */}
         <div className="image-preview-section">
           <img src={editedProduct.imgsrc} alt={editedProduct.title} className="main-preview-img" />
           <div className="image-url-input">
@@ -65,7 +64,6 @@ const ProductView = () => {
           </div>
         </div>
 
-        {/* قسم بيانات المنتج */}
         <div className="details-edit-section">
           <h2 className="section-title">Edit Product Details</h2>
           
