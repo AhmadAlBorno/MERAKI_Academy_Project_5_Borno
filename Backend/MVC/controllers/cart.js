@@ -87,7 +87,35 @@ const getCartWereIsDeletedFalse = (req, res) => {
     });
 };
 
+const getCartWhereIsDeletedTure = (req, res) => {
+  const userId = req.token.user_id;
+
+  pool
+    .query(
+      `
+      SELECT *
+      FROM cart
+      WHERE is_deleted = true
+      AND users_id = $1
+      `,
+      [userId]
+    )
+    .then((result) => {
+      res.json({
+        success: true,
+        items: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        error: err.message,
+      });
+    });
+};
+
 module.exports = {
   addToCart,
   getCartWereIsDeletedFalse,
+  getCartWhereIsDeletedTure,
 };
