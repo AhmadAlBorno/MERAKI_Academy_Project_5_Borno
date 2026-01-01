@@ -20,7 +20,20 @@ const Cart = () => {
         console.log(err);
       });
   }, []);
+  const removeFromCart = (cartProductId) => {
+    axios
+      .delete(`http://localhost:5000/cart/${cartProductId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        console.log(res.data.message);
 
+        setItems(items.filter((item) => item.id !== cartProductId));
+      })
+      .catch((err) => {
+        console.error(err.response?.data || err.message);
+      });
+  };
   return (
     <div>
       <h2>Your Cart</h2>
@@ -35,6 +48,8 @@ const Cart = () => {
             <p>Price: {item.price}</p>
             <p>Quantity : {item.quantity}</p>
             <hr />
+            <button onClick={() => removeFromCart(item.id)}>Remove</button>
+
           </div>
         ))
       )}
