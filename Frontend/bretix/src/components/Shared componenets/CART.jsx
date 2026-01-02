@@ -3,10 +3,8 @@ import axios from "axios";
 
 const Cart = () => {
   const [items, setItems] = useState([]);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
     axios
       .get("http://localhost:5000/cart/with-products", {
         headers: {
@@ -28,7 +26,9 @@ const Cart = () => {
       .then((res) => {
         console.log(res.data.message);
 
-        setItems(items.filter((item) => item.id !== cartProductId));
+        setItems(
+          items.filter((item) => item.cart_product_id !== cartProductId)
+        );
       })
       .catch((err) => {
         console.error(err.response?.data || err.message);
@@ -48,8 +48,9 @@ const Cart = () => {
             <p>Price: {item.price}</p>
             <p>Quantity : {item.quantity}</p>D
             <hr />
-            <button onClick={() => removeFromCart(item.id)}>Remove</button>
-
+            <button onClick={() => removeFromCart(item.cart_product_id)}>
+              Remove
+            </button>
           </div>
         ))
       )}
